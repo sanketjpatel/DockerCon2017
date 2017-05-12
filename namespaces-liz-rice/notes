@@ -1,0 +1,12 @@
+What have namespaces done for you lately?
+
+Liz Rice @lizrice
+
+Build your own container in Go
+
+Namespaces, CGroups, Fork bomb
+
+Namespaces restrict what a process can see when it's running in Linux.
+Syscall interface
+
+
