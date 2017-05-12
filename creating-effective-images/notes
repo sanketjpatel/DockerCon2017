@@ -1,0 +1,83 @@
+Use shared images
+Combine RUN commands into one
+
+Use caching
+
+
+BAD
+```
+FROM ubuntu:latest
+LABEL maintainer abbyfull@amazon.com
+RUN apt-get update -y 
+RUN apt-get install -y python-pip python-dev build-essential
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
+ENTRYPOINT ["python"]
+CMD ["application.py"]
+```
+
+ubuntu image is 458 MB
+python from alpine is 86.8 MB instead
+
+When do you want a full base OS?
+- Compliance
+- Security
+- Ease of development
+
+A Little better
+```
+FROM python:2.7-alpine
+LABEL maintainer abbyfull@amazon.com
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
+ENTRYPOINT ["python"]
+CMD ["application.py"]
+```
+
+Layers represent file-system differences. Layers add up quickly, with big consequences.
+
+Windows:
+Do not add C: or Windows/ paths for building images
+MSI installations are not space efficient.
+Windows saves these files for uninstalls
+
+
+```
+RUN apt-get update && apt-get install -y \
+    aufs-tools \
+    automake \
+    build-essential \
+```
+
+Switching USER adds layers
+
+
+.dockerignore npm-debug.log
+cache node_modules
+
+```
+COPY package.json .
+RUN npm install --production
+COPY . .
+```
+
+```
+FROM ubuntu AS build-env
+RUN apt-get install make
+ADD . /src
+RUN cd /src && make
+```
+
+For second Dockerfile, copy from #1:
+```
+FROM busybox
+COPY --from=build-env /src/build/app /usr/local/bin/app
+EXPOSE 80
+ENTRYPOINT /usr/local/bin/app
+```
+
+

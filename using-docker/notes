@@ -1,0 +1,8 @@
+OpenWhisk serverless framework
+
+Environmental Drift: Disparity between PROD and DEV => Works on my machine syndrome
+Security patch, provisioning "latest" at different times
+
+Devs focus only on the code
+
+

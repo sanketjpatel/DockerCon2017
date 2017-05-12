@@ -1,0 +1,30 @@
+Java base image: openjdk
+
+jdk for building
+jre for packaging
+
+alpine version lighter than Debian
+
+azul/zulu-openjdk
+
+Multistage build process
+
+Maven plugin
+io.fabric8:docker-maven-plugin:0.20.1
+
+Goals: docker:X, X=stop, build, push, ...
+
+Gradle plugin
+com.bmuschko:gradle-docker-plugin:3.0.6
+
+Multiple files - image and ports
+
+Swarm Mode - Declarative state model
+
+docker stack deploy --compose-file=docker-compose.yml webapp
+
+cAdvisor or Prometheus for monitoring Docker Containers
+
+Slides: github.com/docker/labs/tree/master/slides
+Workshop: github.com/docker/labs/tree/master/java
+
